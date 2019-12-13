@@ -9,6 +9,10 @@ RSpec.describe RobotController do
         expect(robot.devolverPosicion(2,3,"N")).to match_array([2,3,"N"])
     end
 
+    it 'Debería devolver que no acepta valores negativos' do
+        expect(robot.validarCoordenada(2,-3,"N")).to eq("Error, negativos no permitidos")
+    end
+
     it 'Deberia devolver posición final con uno de a la Izquierda-> inicial 2,3,N + I final 1,3,O' do
         expect(robot.calcularPosicionFinal(2,3,"N","I")).to match_array([2,3,"O"])
     end
@@ -19,6 +23,14 @@ RSpec.describe RobotController do
 
     it 'Deberia devolver posición final con uno de a Arriba-> inicial 2,3,N + A final 2,4,N' do
         expect(robot.calcularPosicionFinal(2,3,"N","A")).to match_array([2,4,"N"])
+    end
+
+    it 'Deberia devolver posición final con uno de a Adelante-> inicial 2,3,O + A final 1,3,O' do
+        expect(robot.calcularPosicionFinal(2,3,"O","A")).to match_array([1,3,"O"])
+    end
+
+    it 'Deberia devolver posición final con uno de a Adelante-> inicial 2,3,E + A final 3,3,E' do
+        expect(robot.calcularPosicionFinal(2,3,"E","A")).to match_array([3,3,"E"])
     end
 
     it 'Deberia devolver posición final con uno de a Arriba-> inicial 2,3,E + I final 2,3,N' do

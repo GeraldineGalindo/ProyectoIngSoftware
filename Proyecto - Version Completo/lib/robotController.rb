@@ -7,6 +7,12 @@ class RobotController
         @aux = 0
         @length = 0
     end
+    def validarCoordenada(x,y,orientation)
+        if(x < 0 || y < 0)
+            return "Error, negativos no permitidos"
+        end
+        return "Continuar"
+    end
     def devolverPosicion(x, y, orientation)
         @arr << x << y << orientation
         return @arr

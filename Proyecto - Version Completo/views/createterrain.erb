@@ -4,31 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Coordenadas</title>
+    <title>Terreno</title>
 
 </head>
 <body>
-    <center><h1 id="jugador"><%=@@nombre%> Ingresa Coordenadas</h1></center>
+    <center><h1 id="jugador"><%=@@nombre%> Ingresa espacio del terreno</h1></center>
     <div id="container">
         <div id="box">
-            <center><h1 id="title1">Posicionar Robot </h1>
-            <form method = 'post' action='/establecerInicio'>
-                Posicion en el eje X <br>
-                <input type = 'text' name = 'ejex'><br>
-                Posicion en el eje Y <br>
-                <input type = 'text' name = 'ejey'><br>
-                <label for='orientation'>Ingrese Orientacion</label>
-                <select name = 'orientation'>
-                    <option value = 'N'>Norte</option>
-                    <option value = 'E'>Este</option>
-                    <option value = 'O'>Oeste</option>
-                    <option value = 'S'>Sur</option>    
-                </select>
-                <br>
-                <label for='instructions'>Ingrese Instrucciones</label>
-                <br>
-                <input type='text' name = 'instructions'>
-                <br>
+            <center><h1 id="title1">Creación del Terreno </h1>
+            <form method = 'post' action='/establecerTerreno'>
+                <label for='instructions'>Ingrese Terreno</label><br>
+                Rango eje X <br>
+                <input type = 'text' name = 'terrx'><br>
+                Rango eje Y <br>
+                <input type = 'text' name = 'terry'><br>
                 <input type = 'submit' value = 'Establecer'>
             </form>
             <form method = 'get' action='/'>
@@ -40,7 +29,7 @@
 </body>
 </html>
 <style>
-   html, body{
+    html, body{
         background: #4AFFFA;
         overflow-x: hidden;
     }
@@ -51,7 +40,7 @@
         background:#DEFFF2;
     }
     #container{
-        background: url(), url();
+        background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEtfYx5S9SLnTzR1T8Kh2E3-Uefn_5aDhPOin8s2AvRTXnLMng&s), url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxd_FS488Cz4EWUa-cYGjCSmuzs71L_x6TIcVnvuxuAD5t_OqOZw&s);
         background-position: left top, right bottom;
         background-repeat: no-repeat, no-repeat;
         margin-left:50px;
@@ -86,9 +75,5 @@
         font-family: 'Times New Roman', Times, serif;
         font-size:2em;
         margin-top:-40px;
-    }
-    select{
-        color: black;
-        font-size: 20px;
     }
 </style>

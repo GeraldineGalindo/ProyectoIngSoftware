@@ -1,0 +1,13 @@
+Feature:
+    Como jugador
+    Quiero ver la posición final del robot
+    Para verificar que se ha seguido la secuencia de datos
+
+Scenario: 
+    Given visito la página de respuetas o resultado del juego
+    Then debería ver la posición final del robot
+
+Scenario:
+    Given el robot realizó una secuencia de datos
+    When en pantalla se muestre un número negativo "[1,-3,'N']"
+    Then debe mostrarse un mensaje de error "Robot salió del terreno designado"

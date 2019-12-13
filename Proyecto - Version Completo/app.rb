@@ -6,10 +6,17 @@ get '/' do
 end
 
 get '/nombrar' do
-    @nombre = params[:nombre]
+    @@nombre = params[:nombre]
+    erb:createterrain
+end
+get '/volverTerreno' do
     erb:createspace
 end
-
+post '/establecerTerreno' do
+    @@terrx = params[:terrx].to_i
+    @@terry = params[:terry].to_i
+    erb:createspace
+end
 post '/establecerInicio' do
     @robot = RobotController.new
     @ejex = params[:ejex].to_i

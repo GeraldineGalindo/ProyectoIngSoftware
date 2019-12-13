@@ -4,22 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Terreno</title>
+    <title>Tablero</title>
 
 </head>
 <body>
-    <center><h1 id="jugador">Tablero de Dash & Roll</h1></center>
+    <center><h1 id="jugador">Bienvenido <%=@@nombre%> al Tablero de Dash & Dot</h1></center>
     <div id="container">
         <div id="box">
             <center><h1 id="title1">Terreno</h1>
-            <div id = 'movementResult'>
-                <h1>Salida: <%=@resp%></h1>
-            </div>
-            <br>
-            <form method = 'get' action='/nombrar'>
-                <input type = 'submit' value = 'Atrás'>
-            </form>
-            </center>
+            <% if @@terrx <= 0 || @@terry <= 0 %> 
+                <h1>Por favor introducir coordenadas de terreno mayor a 0</h1><br>
+                <form method = 'get' action='/nombrar'>
+                    <input type = 'submit' value = 'Atrás'>
+                </form>
+            <% elsif @ejex <= 0 || @ejey <= 0 %>
+                <h1>Por favor introducir coordenadas del robot mayor a 0</h1><br>
+                <form method = 'get' action='/volverTerreno'>
+                    <input type = 'submit' value = 'Atrás'>
+                </form>
+            <% elsif @ejex > @@terrx || @ejey > @@terry %>
+                <h1>Por favor introducir coordenadas del robot dentro del terreno</h1><br>
+                <form method = 'get' action='/volverTerreno'>
+                    <input type = 'submit' value = 'Atrás'>
+                </form>
+            <% else %> 
+                <div id = "movementResult">
+                    <h1>Salida: <%=@resp%></h1>
+                    
+                </div>
+                <br>
+                <form method = 'get' action='/nombrar'>
+                    <input type = 'submit' value = 'Atrás'>
+                </form>
+                <div id = "brujula"></div>
+                <table>
+                    <% for i in 1..@@terry do %>
+                        <tr>
+                            <% for j in 1..@@terrx do %>
+                                <% if i == @resp[1] && j == @resp[0]%> 
+                                    <% if @resp[2] == 'E' %>
+                                        <th class="originE"></th>
+                                    <% elsif @resp[2] == 'N' %>
+                                        <th class="originN"></th>
+                                    <% elsif @resp[2] == 'O' %>
+                                        <th class="originO"></th>
+                                    <% elsif @resp[2] == 'S' %>
+                                        <th class="originS"></th>
+                                    <% end %>
+                                <% elsif i == @ejey && j == @ejex %>
+                                    <% if @orientation == 'E' %>
+                                        <th class="finalE"></th>
+                                    <% elsif @orientation == 'N' %>
+                                        <th class="finalN"></th>
+                                    <% elsif @orientation == 'O' %>
+                                        <th class="finalO"></th>
+                                    <% elsif @orientation == 'S' %>
+                                        <th class="finalS"></th>
+                                    <% end %>
+                                <% else %> 
+                                    <th class="square"></th>
+                                <% end %>
+                            <% end %>
+                        </tr>
+                    <% end %>
+                </table>
+                </center>   
+            <% end %>
         </div>
     </div>
 </body>
@@ -27,10 +77,7 @@
 <style>
    html, body{
         background: #FDE4C3;
-        width:100%;
-        height:100%;
         overflow-x: hidden;
-        overflow-y: hidden;
     }
     #jugador{
         font-family: 'Times New Roman', Times, serif;
@@ -63,9 +110,86 @@
         font-size: 30px;
         margin:10px;
     }
+    #brujula{
+        background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQurw30tosgGFvu-ofuWqp4jVSPIETW7Gxq0PibdaFnMY6J_B2zYA&s) no-repeat;
+        background-size:cover;
+        height:200px;
+        width:200px;
+        transform: rotate(180deg);
+    }
     form{
         font-family: 'Times New Roman', Times, serif;
         font-size:2.5em;
         margin-top:-40px;
+    }
+    .square {
+        height: 50px;
+        width: 50px;
+        background-color: #555;
+        margin:5px;
+    }
+    .finalE {
+        background: url(https://www.pngkey.com/png/detail/17-174195_png-file-size-paint-brush-arrow-png.png) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+        transform: rotate(180deg);
+    }
+    .finalN {
+        background: url(https://www.pngkey.com/png/detail/17-174195_png-file-size-paint-brush-arrow-png.png) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+        transform: rotate(90deg);
+    }
+    .finalS {
+        background: url(https://www.pngkey.com/png/detail/17-174195_png-file-size-paint-brush-arrow-png.png) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+        transform: rotate(270deg);
+    }
+    .finalO {
+        background: url(https://www.pngkey.com/png/detail/17-174195_png-file-size-paint-brush-arrow-png.png) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+    }
+    .originE {
+        background: url(https://images-na.ssl-images-amazon.com/images/I/71JSfoapSsL._SL1500_.jpg) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+        transform: rotate(90deg);
+    }
+    .originN {
+        background: url(https://images-na.ssl-images-amazon.com/images/I/71JSfoapSsL._SL1500_.jpg) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+    }
+    .originS {
+        background: url(https://images-na.ssl-images-amazon.com/images/I/71JSfoapSsL._SL1500_.jpg) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+        transform: rotate(180deg);
+    }
+    .originO {
+        background: url(https://images-na.ssl-images-amazon.com/images/I/71JSfoapSsL._SL1500_.jpg) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+        transform: rotate(270deg);
+    }
+    .pass {
+        background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Bullet_%28typography%29.svg/1200px-Bullet_%28typography%29.svg.png) no-repeat;
+        height: 50px;
+        width: 50px;
+        background-size:50px 50px;
+    }
+    table, th, td {
+        border: 1px solid black;
+        background-color:black;
     }
 </style>
